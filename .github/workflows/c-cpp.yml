@@ -13,11 +13,11 @@ jobs:
 
     steps:
     - name: Checkout Repo
-    - uses: actions/checkout@v4
+      uses: actions/checkout@v4
     - name: make
       run: make
     - name: Upload Lib File
-    - uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3
       with:
         name: libfb.a
         path: bin/libfb.a
