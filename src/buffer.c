@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+// Find the comma separating length and width
 int split_ind(char str[]) {
 	for(int i = 0; i < *(&str + 1) - str; i++) {
 		if(str[i] == ',') {
@@ -12,12 +13,14 @@ int split_ind(char str[]) {
 	return -1;
 }
 
+// Initialize buffer struct
 libfb_buffer libfb_init_buffer(int buffer) {
 	char base_dirname[25];
 	char dimensions_fname[37];
 	char stride_fname[31];
 	char fbuf_fname[9];
 
+	// Filenames based on buffer being opened
 	sprintf(base_dirname, "/sys/class/graphics/fb%d/", buffer);
 	sprintf(dimensions_fname, "%svirtual_size", base_dirname);
 	sprintf(stride_fname, "%sstride", base_dirname);
@@ -31,9 +34,11 @@ libfb_buffer libfb_init_buffer(int buffer) {
 	char width[10];
 	char height[10];
 
+	// Read dimensions and stride
 	fgets(dimensions, 10, dim_f);
 	fgets(stride, 5, stri_f);
 
+	// Separate dimensions into width and height
 	for(int i = 0; i < split_ind(dimensions); i++) {
 		width[i] = dimensions[i];
 	}
@@ -41,6 +46,7 @@ libfb_buffer libfb_init_buffer(int buffer) {
 		height[i-(split_ind(dimensions)+1)] = dimensions[i];
 	}
 
+	// Close files
 	fclose(dim_f);
 	fclose(stri_f);
 
