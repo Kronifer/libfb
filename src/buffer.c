@@ -1,6 +1,7 @@
 #include "../include/buffer.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/file.h>
 
 // Find the comma separating length and width
 int split_ind(char str[]) {
@@ -50,9 +51,11 @@ libfb_buffer libfb_init_buffer(int buffer) {
 	fclose(stri_f);
 
 	libfb_buffer buf = {.fp = fopen(fbuf_fname, "wb"), .stride = atoi(stride), .width = atoi(width), .height = atoi(height), .buffer = buffer, .w_bytes_written = 0};
+	flock(fileno(buf.fp), LOCK_EX);
 	return buf;
 }
 
 void libfb_close_buffer(libfb_buffer *buffer) {
+	flock(fileno(buffer->fp), LOCK_UN);
 	fclose(buffer->fp);
 }
