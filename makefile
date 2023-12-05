@@ -1,5 +1,6 @@
-libfb.a : px.o buffer.o draw.o 
-	mkdir -p bin
+libfb.a : px.o buffer.o draw.o
+	rm -rf bin
+	mkdir bin
 	ar -cvq bin/libfb.a px.o buffer.o draw.o
 	rm px.o buffer.o draw.o
 
