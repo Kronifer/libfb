@@ -20,3 +20,8 @@ void libfb_next_line(libfb_buffer *buf) {
 	fseek(buf->fp, 5504-buf->w_bytes_written, SEEK_CUR);
 	buf->w_bytes_written = 0;
 }
+
+void libfb_top_buffer(libfb_buffer *buf) {
+	fseek(buf->fp, 0, SEEK_SET);
+	buf->w_bytes_written = 0;
+}
