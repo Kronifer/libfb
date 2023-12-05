@@ -1,7 +1,6 @@
 #include "../include/buffer.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 // Find the comma separating length and width
 int split_ind(char str[]) {
