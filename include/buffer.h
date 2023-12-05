@@ -11,4 +11,6 @@ typedef struct {
 } libfb_buffer;
 
 libfb_buffer libfb_init_buffer(int buffer);
+
+void libfb_close_buffer(libfb_buffer buffer);
 #endif

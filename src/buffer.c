@@ -53,3 +53,7 @@ libfb_buffer libfb_init_buffer(int buffer) {
 	libfb_buffer buf = {.fp = fopen(fbuf_fname, "wb"), .stride = atoi(stride), .width = atoi(width), .height = atoi(height), .buffer = buffer, .w_bytes_written = 0};
 	return buf;
 }
+
+void libfb_close_buffer(libfb_buffer *buffer) {
+	fclose(buffer->fp);
+}
