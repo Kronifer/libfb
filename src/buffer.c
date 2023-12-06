@@ -50,12 +50,13 @@ libfb_buffer libfb_init_buffer(int buffer) {
 	fclose(dim_f);
 	fclose(stri_f);
 
-	libfb_buffer buf = {.dbuffer_raw = malloc(atoi(stride)*atoi(height)*sizeof(char)), .fp = fopen(fbuf_fname, "wb"), .stride = atoi(stride), .width = atoi(width), .height = atoi(height), .buffer = buffer, .w_bytes_written = 0};
+	libfb_buffer buf = {.fp = fopen(fbuf_fname, "wb"), .stride = atoi(stride), .width = atoi(width), .height = atoi(height), .buffer = buffer, .w_bytes_written = 0};
 	flock(fileno(buf.fp), LOCK_EX);
 	return buf;
 }
 
 void libfb_init_dbuffer(libfb_buffer *buffer) {
+	buffer->dbuffer_raw = malloc(buffer->stride*buffer->height*sizeof(char));
 	buffer->dbuffer = fmemopen(buffer->dbuffer_raw, buffer->stride*buffer->height*sizeof(char), "w+b");
 	buffer->en_dbuffer = 1;
 }

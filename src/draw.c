@@ -48,7 +48,5 @@ void libfb_render_buffer(libfb_buffer *buf) {
 	}
 	fseek(buf->dbuffer, 0, SEEK_SET);
 	fseek(buf->fp, 0, SEEK_SET);
-	char buffer[buf->stride*buf->width];
-	fread(buffer, buf->stride*buf->width, sizeof(char), buf->dbuffer);
-	fwrite(buffer, buf->stride*buf->width, sizeof(char), buf->fp);
+	fwrite(buf->dbuffer_raw, buf->stride*buf->width, sizeof(char), buf->fp);
 }
